@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+
+
+
+
+
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3 text-center">
+
+        <img class="img-responsive center-block"  src="{% static 'img/o.jpg' %}" alt="TIG zavarivanje">
+
+
+
+        <h1 >{{title}}</h1>
+        
+        <p>Selo Subotica kod Svilajnca</p>
+        <p>tel: 035 8 802 114</p>
+        <p>e-mail: email@host.com</p><br>
+
+
+<h3 class="text-center">Pišite nam!</h3><br>
+<p>Iznesite Vaše sugestije i zahteve, mi smo tu da bi Vaše želje bile ispunjene.</p><br>
+
+    {% if confirm_message %}
+      <div  class="alert alert-success" role="alert">{{ confirm_message }}</div>
+    {% endif %}
+
+
+    {% if form %}
+      <form action="" method="POST"> {% csrf_token %}
+        {{form|crispy}}
+
+        <input type="submit" value="Pošalji" class="btn btn-default btn-block">
+      </form>
+    {% endif %}
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}

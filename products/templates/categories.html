@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+    <h1>Mi smo napravili</h1>
+
+
+
+
+
+      <button type="button" class="btn btn-warning btn-large" data-toggle="modal" data-target="#myModal">Detaljna Pretraga</button>
+      <br><hr>
+
+
+
+
+  {% if proizvodi %}
+
+
+    <div class="row">
+      {% for proizvod in proizvodi %}
+      <div class="col-xs-4">
+        <a href="#myGallery" data-slide-to="{{forloop.counter0}}" class="thumbnail">
+          <img src="{{proizvod.image.url}}" alt="{{proizvod.kategorija}}" style="max-height:80px;max_width=100px;" data-toggle="modal" data-target="#myModal1">
+          {% if request.user.is_authenticated %}
+          
+          <a href="{% url 'product_delete' proizvod.id %}"  class="thumbnail">Obriši<span class="glyphicon glyphicon-remove"></span></a>
+          
+          {%endif%}
+        </a>
+        
+           
+        
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+      <p>Trenutno nema proizvoda u ponudi</p>
+  {% endif %}
+
+
+    </div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Pretraga:</h4>
+          </div>
+          <div class="modal-body">
+            <p>  <form action="" method="get">
+
+
+                  <div class="form-group">
+
+                        <label for="sel1">Izaberite kategoriju:</label>
+                        <select class="form-control" id="sel1"  name="k"  value="{{request.GET.k}}">>
+                          <option>kapije</option>
+                          <option>ograde</option>
+                          <option>gelenderi</option>
+                          <option>ogradice za terase</option>
+                          <option>galanterija</option>
+                        </select>
+
+                        <!-- <span class="input-group-btn">
+                        <button class="btn btn-default" type="Submit">Go!</button>
+                      </span> -->
+
+                      <label for="sel2">Izaberite materijal:</label>
+                      <select class="form-control" id="sel2"  name="m"  value="{{request.GET.m}}">>
+                        <option>prohrom-inox</option>
+                        <option>crni čelik-kovano gvožđe</option>
+
+                      </select>
+                      <br>
+
+                        <button class="btn btn-default pull-right"  type="Submit">Go!</button>
+
+                      <br>
+
+
+
+              </div>
+                </form></p>
+          </div>
+          <div class="modal-footer">
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    <!--begin modal window-->
+    <div class="modal fade" id="myModal1">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <div class="pull-left">Djordjević Inox-Galerija proizvoda</div>
+    <button type="button" class="close" data-dismiss="modal" title="Close" aria-hidden="true"> <span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <div class="modal-body">
+
+      <!--begin carousel-->
+      <div id="myGallery" class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+{% for proizvod in proizvodi %}
+
+
+      <div {% if forloop.counter0 == 0 %} class="item active"{%else%}class="item" {%endif%}> <img src="{{proizvod.image.url}}" alt="item{{forloop.counter0}}"  width="800">
+      </div>
+      <!-- <div class="carousel-caption">
+      <h3>{{proizvod.kategorija}}</h3>
+      <p>{{proizvod.materijal}}</p>
+      </div> -->
+{%endfor%}
+      </div>
+
+
+
+      <!--end carousel-inner--></div>
+      <!--Begin Previous and Next buttons-->
+      <a class="left carousel-control" href="#myGallery" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#myGallery" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span></a>
+      <!--end carousel--></div>
+    <!--end modal-body--></div>
+    <!-- <div class="modal-footer">
+    <div class="pull-left">
+    <small><!--Photographs by <a href="http://lorempixel.com" target="new">Lorempixel.com</a>WOLF Baumaschinen&Kfz</small>
+  </div> -->
+
+    <button class="btn-sm close" type="button" data-dismiss="modal">Close</button>
+    <!--end modal-footer--></div>
+    <!--end modal-content--></div>
+    <!--end modal-dialoge--></div>
+    <!--end myModal-->></div>
+
+{% endblock %}
