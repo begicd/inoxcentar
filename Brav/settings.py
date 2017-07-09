@@ -36,7 +36,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['inoxcentardjordjevic.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -150,7 +150,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles/')
 STATICFILES_DIRS=(
-            os.path.join(os.path.dirname(BASE_DIR),"static","static"),
+            os.path.join(BASE_DIR,"static","static"),
     )
 
 MEDIA_URL='/media/'
@@ -159,10 +159,10 @@ MEDIA_ROOT='media'
 
 if DEBUG:
     MEDIA_URL='/media/'
-    STATIC_ROOT=os.path.join(os.path.dirname(BASE_DIR),"static","static-only")
-    MEDIA_ROOT=os.path.join(os.path.dirname(BASE_DIR),"static","media")
+    STATIC_ROOT=os.path.join(BASE_DIR,"static","static-only")
+    MEDIA_ROOT=os.path.join(BASE_DIR,"static","media")
     STATICFILES_DIRS=(
-            os.path.join(os.path.dirname(BASE_DIR),"static","static"),
+            os.path.join(BASE_DIR,"static","static"),
     )
 
 
